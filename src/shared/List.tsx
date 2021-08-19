@@ -26,6 +26,8 @@ export default function CheckboxList() {
 
 const classes = useStyles();
 const [checked, setChecked] = React.useState([0]);
+// const [delete, setDelete] = React.useState([0]);
+
 const dispatch=useDispatch()
 const {chooseEmployeeMap} = useSelector(({paymentReducer}:any)=>paymentReducer)
 const handleToggle = (value: number,employeeId:number) => () => {
@@ -39,7 +41,9 @@ const handleToggle = (value: number,employeeId:number) => () => {
   dispatch(ExecutePayments(employeeId,'awaiting approval'))
   setChecked(newChecked);
 };
-
+// const handleDelete=()=>{
+//    dispatch(Cancelexecuted())
+// }
 return (
   <List className={classes.root}>
     {chooseEmployeeMap?
@@ -61,13 +65,13 @@ return (
             />
           </ListItemIcon>
           {status?<ListItemText id={labelId}   primary={`num employee ${value["id"]+'  '+value["first_name"]+'  '+value["last_name"]+'  '+value["status"]}`}/>:
-            <ListItemText id={labelId}   primary={`num employee ${value["id"]+'  '+value["first_name"]+'  '+value["last_name"]} `}/>
+            <ListItemText id={labelId}   primary={`num employee ${value["id"]+'  '+value["first_name"]+' '+value["last_name"]}+'Unchecked'`}/>
          }
           
          
 
           <ListItemSecondaryAction>
-            <IconButton edge="end" aria-label="comments">
+            <IconButton edge="end" aria-label="comments" >
               <CommentIcon />
             </IconButton>
           </ListItemSecondaryAction>

@@ -22,8 +22,11 @@ export const StatusPayment=(idEmploy:number,status:string)=>(dispatch: AppDispat
    
 }
 
-export const Cancelexecuted=(idEmploy:any)=>(dispatch: AppDispatch)=>{
-   
+export const Cancelexecuted=(idEmployee:any)=>(dispatch: AppDispatch)=>{
+    dispatch({
+       type: CANCEL_EXECUTED_PAYMENTS,
+       idEmployee
+    })
 }
 
 export const chooseEmployee = (employeeMap:any) =>(dispatch:AppDispatch)=>{

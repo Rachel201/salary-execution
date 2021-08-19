@@ -28,15 +28,16 @@ export default (state =initialState , action:any)=>{
             chooseEmployeeMap:action.employeeMap
           }
         case PAYMENT_STATUS: 
-          
+        console.log("action.idEmployee: ",action.idEmployee)
             return{
               ...state,
               paymentForEmployeeMap:
                //@ts-ignore
-                {...state.paymentForEmployeeMap[action.idEmployee].status=action.changeStatus}  
+               {...state.paymentForEmployeeMap[action.idEmployee]?.status=action.changeStatus}  
+              // paymentForEmployeeMap:{...state.paymentForEmployeeMap[action.idEmployee]?.status=action.changeStatus}
             }
         default:
-          return{ ...state}  
+        return{ ...state}  
    }
 }
 
