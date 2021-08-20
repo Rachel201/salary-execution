@@ -12,6 +12,7 @@
     "@types/node": "^12.20.19",
     "@types/react": "^17.0.19",
     "@types/react-dom": "^17.0.9",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
     "react": "^17.0.2",
     "react-data-table-component": "^6.11.8",
     "react-dom": "^17.0.2",

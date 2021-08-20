@@ -61,6 +61,7 @@ const  ListEmployees = ()=> {
    const dispatch=useDispatch()
   const [choosEmployee,setChoosEmployee] = useState()
   const [selectEmployee,setSelectEmployee] = useState(false)
+
   const handleChange = (employeeSelected:any) => {
     setChoosEmployee(employeeSelected.selectedRows) 
     dispatch(chooseEmployee(choosEmployee))
@@ -90,7 +91,7 @@ const  ListEmployees = ()=> {
         />
       </Card>
       <CustomizedDialogs deleteDispach={Cancelexecuted} objEmplyees={choosEmployee} />
-      {choosEmployee? <InteractiveList/>:null}
+      <InteractiveList/>
       <Button variant="contained" color="primary" onClick={handleManagar}>
         Manager
       </Button>

@@ -33,8 +33,8 @@ export default (state =initialState , action:any)=>{
               ...state,
               paymentForEmployeeMap:
                //@ts-ignore
-               {...state.paymentForEmployeeMap[action.idEmployee]?.status=action.changeStatus}  
-              // paymentForEmployeeMap:{...state.paymentForEmployeeMap[action.idEmployee]?.status=action.changeStatus}
+              //  {...state.paymentForEmployeeMap[action.idEmployee]=objectEmployee.changeStatus}  
+              {...state.paymentForEmployeeMap[action.idEmployee].status=action.changeStatus}
             }
         default:
         return{ ...state}  

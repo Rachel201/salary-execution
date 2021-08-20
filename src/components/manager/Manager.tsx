@@ -49,11 +49,14 @@ const Manager = () =>{
    const {paymentForEmployeeMap} = useSelector(({paymentReducer}:any)=>paymentReducer)
     
     const handleChange = (employeeSelected:any) => {
-      console.log("employeeSelected.selectedRows+1 : ",employeeSelected.selectedRows)
-      dispatch(StatusPayment(employeeSelected.selectedRows["id"],'Payment approved'));
+            //@ts-ignore
+      const index = paymentForEmployeeMap.findIndex(paymentForEmployee=>paymentForEmployee['id']===employeeSelected.selectedRows[0].id)
+      console.log("employeeSelected.selectedRows+1 : ",index)
+      //@ts-ignore
+      dispatch(StatusPayment(index,'Payment approved'));
       console.log('Selected Rows: ',employeeSelected.selectedRows );
     };
-     
+    
     return(
         <div className="container">
         <Card>

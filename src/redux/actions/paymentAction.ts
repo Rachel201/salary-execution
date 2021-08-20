@@ -16,10 +16,12 @@ export const ExecutePayments=(idEmployee:any,changeStatus:string)=>(dispatch: Ap
     // dispatch({type:PAYMENT_STATUS,idEmployee, changeStatus})
 }
 
-export const StatusPayment=(idEmploy:number,status:string)=>(dispatch: AppDispatch)=>{
-    console.log("idEmploy: ",idEmploy)
-    dispatch({type:PAYMENT_STATUS,idEmploy,changeStatus:status})
-   
+export const StatusPayment=(idEmployee:any,status:string)=>(dispatch: AppDispatch)=>{
+    let objectEmployee=jsonEmployees[idEmployee];
+    console.log("objectEmployee:",objectEmployee)
+    //@ts-ignore
+    objectEmployee['status']=status
+    dispatch({type:PAYMENT_STATUS,idEmployee: idEmployee,changeStatus:status,objectEmployee})
 }
 
 export const Cancelexecuted=(idEmployee:any)=>(dispatch: AppDispatch)=>{

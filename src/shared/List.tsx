@@ -38,6 +38,7 @@ const handleToggle = (value: number,employeeId:number) => () => {
   } else {
     newChecked.splice(currentIndex, 1);
   }
+  console.log("employeeId: ",employeeId)
   dispatch(ExecutePayments(employeeId,'awaiting approval'))
   setChecked(newChecked);
 };
