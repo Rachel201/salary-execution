@@ -1,10 +1,12 @@
-import { Card } from '@material-ui/core';
-import React, { useReducer } from 'react';
+import { Button, Card } from '@material-ui/core';
+import React, { useEffect, useReducer, useRef, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux"
 import DataTable from 'react-data-table-component';
 import SortIcon from "@material-ui/icons/ArrowDownward";
-import dataEmployes from '../../data/MOCK_DATA.json';
 import { StatusPayment} from '../../redux/actions/paymentAction';
+import { Link } from 'react-router-dom';
+import { createFalse } from 'typescript';
+import ListEmployees from '../listEmployees/ListEmployees';
 
 const columns = [
     {
@@ -47,17 +49,20 @@ const columns = [
 const Manager = () =>{
   const dispatch=useDispatch()
    const {paymentForEmployeeMap} = useSelector(({paymentReducer}:any)=>paymentReducer)
-    
-    const handleChange = (employeeSelected:any) => {
-            //@ts-ignore
-      const index = paymentForEmployeeMap.findIndex(paymentForEmployee=>paymentForEmployee['id']===employeeSelected.selectedRows[0].id)
+   const[toListEmployees,settoListEmployees] = useState(false)
+   const handleChange = (employeeSelected:any) => {
+      const index = paymentForEmployeeMap.findIndex((paymentForEmployee: { [x: string]: any; })=>paymentForEmployee['id']===employeeSelected.selectedRows[0].id)
+      paymentForEmployeeMap[index]['status']='Payment approved'
       console.log("employeeSelected.selectedRows+1 : ",index)
-      //@ts-ignore
-      dispatch(StatusPayment(index,'Payment approved'));
-      console.log('Selected Rows: ',employeeSelected.selectedRows );
-    };
+      dispatch(StatusPayment(index,'Payment approved',paymentForEmployeeMap));
+   };
     
-    return(
+
+
+    const handleListEmployee=()=>{
+      settoListEmployees(true)
+    }
+    return toListEmployees?<ListEmployees/>:(
         <div className="container">
         <Card>
           <DataTable
@@ -71,8 +76,13 @@ const Manager = () =>{
             onSelectedRowsChange={handleChange}
           />
         </Card>
-      </div>
+        <Button variant="contained" color="primary" onClick={handleListEmployee}>
+           List employees
+        </Button>
+       </div>
     )
 }
 
 export default Manager;
+
+

@@ -9,8 +9,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import CommentIcon from '@material-ui/icons/Comment';
 import { useDispatch, useSelector } from 'react-redux';
-import { ExecutePayments } from '../redux/actions/paymentAction';
-import { LensTwoTone } from '@material-ui/icons';
+import { Cancelexecuted, ExecutePayments } from '../redux/actions/paymentAction';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,16 +30,40 @@ const [checked, setChecked] = React.useState([0]);
 
 const dispatch=useDispatch()
 const {chooseEmployeeMap} = useSelector(({paymentReducer}:any)=>paymentReducer)
-const handleToggle = (value: number,employeeId:number) => () => {
-  const currentIndex = checked.indexOf(value);
+const {paymentForEmployeeMap} = useSelector(({paymentReducer}:any)=>paymentReducer)
+
+
+const handleDelete = (index:number)=>{
+  const currentIndex = checked.indexOf(index);
+  console.log("currentIndex",currentIndex)
   const newChecked = [...checked];
   if (currentIndex === -1) {
-    newChecked.push(value);
+    newChecked.push(index);
+  } else {
+    newChecked.splice(currentIndex, 1);
+  }
+   dispatch(Cancelexecuted(index))
+}
+const handleToggle = (index: number,employeeId:number) => () => {
+  console.log('value: ',index)
+  const currentIndex = checked.indexOf(index);
+  console.log("currentIndex",currentIndex)
+  const newChecked = [...checked];
+  if (currentIndex === -1) {
+    newChecked.push(index);
   } else {
     newChecked.splice(currentIndex, 1);
   }
   console.log("employeeId: ",employeeId)
-  dispatch(ExecutePayments(employeeId,'awaiting approval'))
+  if(!paymentForEmployeeMap.find(({id}:any)=>id===employeeId)){
+    console.log("paymentForEmployeeMap.find(({id}:any)=>id===employeeId: ",paymentForEmployeeMap.find(({id}:any)=>id===employeeId))
+    dispatch(ExecutePayments(employeeId,'Awaiting approval'))
+  
+  }
+  else{
+    console.log("paymentForEmployeeMap.find(({id}:any)=>id===employeeId: ",paymentForEmployeeMap.find(({id}:any)=>id===employeeId))
+
+   }
   setChecked(newChecked);
 };
 // const handleDelete=()=>{
@@ -47,10 +71,7 @@ const handleToggle = (value: number,employeeId:number) => () => {
 // }
 return (
   <List className={classes.root}>
-    {chooseEmployeeMap?
-    chooseEmployeeMap.map((value: any,index:number) => {
-      // const labelId = `checkbox-list-label-${value}`;
-      //@ts-ignore
+     {chooseEmployeeMap?chooseEmployeeMap.map((value: any,index:number) => {
       let status;
        value['status']? status= value['status']:status=null
       const labelId=value["id"]
@@ -66,19 +87,18 @@ return (
             />
           </ListItemIcon>
           {status?<ListItemText id={labelId}   primary={`num employee ${value["id"]+'  '+value["first_name"]+'  '+value["last_name"]+'  '+value["status"]}`}/>:
-            <ListItemText id={labelId}   primary={`num employee ${value["id"]+'  '+value["first_name"]+' '+value["last_name"]}+'Unchecked'`}/>
+            <ListItemText id={labelId}   primary={`num employee ${value["id"]+'  '+value["first_name"]+' '+value["last_name"]}Unchecked`}/>
          }
-          
-         
-
           <ListItemSecondaryAction>
-            <IconButton edge="end" aria-label="comments" >
-              <CommentIcon />
+            <IconButton edge="end" aria-label="comments" onClick={(index:any)=>handleDelete(index)}>
+              <DeleteIcon />
             </IconButton>
           </ListItemSecondaryAction>
         </ListItem>
-      );
-    }):null}
+        )
+      })
+    :null}
+  
   </List>
-);
-}
+ );
+  } 

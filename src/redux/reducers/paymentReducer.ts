@@ -18,9 +18,10 @@ export default (state =initialState , action:any)=>{
             paymentForEmployeeMap:[...state.paymentForEmployeeMap,action.addEmploye]
           }
         case CANCEL_EXECUTED_PAYMENTS: 
+          console.log('state.paymentForEmployeeMap: ',state.paymentForEmployeeMap)
           return{
             ...state,
-            paymentForEmployeeMap:state.paymentForEmployeeMap.splice(action.idEmployee)
+            paymentForEmployeeMap:state.paymentForEmployeeMap.splice(action.idEmployee,action.idEmployee+1)
           }
         case CHOOSE_EMPLYEES:
           return{ 
@@ -31,10 +32,8 @@ export default (state =initialState , action:any)=>{
         console.log("action.idEmployee: ",action.idEmployee)
             return{
               ...state,
-              paymentForEmployeeMap:
-               //@ts-ignore
-              //  {...state.paymentForEmployeeMap[action.idEmployee]=objectEmployee.changeStatus}  
-              {...state.paymentForEmployeeMap[action.idEmployee].status=action.changeStatus}
+              paymentForEmployeeMap:action.objectEmployee
+                
             }
         default:
         return{ ...state}  

@@ -49,34 +49,22 @@ const columns = [
 ];
 
 
-export interface IpaymentEmployee{
-    [x: string]: any;
-    id: number;
-    first_name: string;
-    last_name:string;
-    salary: string;
-}
-
 const  ListEmployees = ()=> {
    const dispatch=useDispatch()
-  const [choosEmployee,setChoosEmployee] = useState()
-  const [selectEmployee,setSelectEmployee] = useState(false)
+  const [selectedManager,setSelectedManeger] = useState(false)
 
   const handleChange = (employeeSelected:any) => {
-    setChoosEmployee(employeeSelected.selectedRows) 
-    dispatch(chooseEmployee(choosEmployee))
+    console.log('employeeSelected.selectedRows',employeeSelected.selectedRows)
+    dispatch(chooseEmployee(employeeSelected.selectedRows))
   };
 
   const handleManagar=()=>{
-    setSelectEmployee(true)
+    setSelectedManeger(true)
   }
 
 
-  return selectEmployee?
-    (
-      <Manager/>
-    ):
-  ( 
+  return selectedManager? <Manager/>:
+   ( 
     <div className="container">
       <Card>
         <DataTable
@@ -90,9 +78,8 @@ const  ListEmployees = ()=> {
           onSelectedRowsChange={handleChange}
         />
       </Card>
-      <CustomizedDialogs deleteDispach={Cancelexecuted} objEmplyees={choosEmployee} />
       <InteractiveList/>
-      <Button variant="contained" color="primary" onClick={handleManagar}>
+      <Button id='manager-btn' variant="contained" color="primary" onClick={handleManagar}>
         Manager
       </Button>
     </div>

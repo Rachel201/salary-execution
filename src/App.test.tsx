@@ -1,11 +1,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './App';
+import { shallow} from 'enzyme';
 
 
-
-test('render the title  ', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+const warpeper = shallow(<App/>)
+expect(warpeper.find("h1").text()).toBe('salary execution')

@@ -10,7 +10,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useDispatch, useSelector } from 'react-redux';
-import { IpaymentEmployee } from '../../components/listEmployees/ListEmployees';
 import { ExecutePayments } from '../../redux/actions/paymentAction';
 import { ListItem } from '@material-ui/core';
 
